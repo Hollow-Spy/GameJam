@@ -508,8 +508,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 1381.9998779296875,
-            "y": 655.0
+            "x": 3072.0,
+            "y": 1164.0
         },
         "m_Blocks": [
             {
@@ -2579,10 +2579,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
+            "x": 2487.0,
+            "y": 1038.0,
+            "width": 200.00001525878907,
+            "height": 41.000003814697269
         }
     },
     "m_Slots": [
