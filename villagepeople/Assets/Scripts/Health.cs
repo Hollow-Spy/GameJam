@@ -8,7 +8,7 @@ public class Health : MonoBehaviour
     public void HealthFunction(float damage)
     {
         hp -= damage;
-
+        Debug.Log("aaah");
         if (hp < 1)
         {
             Debug.Log("Death");

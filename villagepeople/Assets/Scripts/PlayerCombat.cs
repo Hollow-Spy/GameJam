@@ -4,44 +4,47 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public Transform Eyes;
-
-    [SerializeField]
-    private float Cooldown;
-
-    [SerializeField]
-    private float Damage;
-
-    private bool CanAttack = true;
+    public static Transform Eyes;
+    public Transform Hand;
+    public static GameObject Weapon = null;
+    public LayerMask mask;
     private void Update()
-    {
-        if (Input.GetButton("Fire1"))
+    {      
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 4f, mask))
         {
-            Attack();
-        }
-    }
-
-    void Attack()
-    {
-        if (CanAttack)
-        {
-            RaycastHit Hit;
-            if (Physics.Raycast(Eyes.transform.position, Eyes.transform.forward, out Hit, 5f))
-            {
-                if (Hit.collider.tag == "Enemy")
+            if (hit.collider.GetComponent<InteractableObject>() != null)
+            {                
+                if (Input.GetButtonDown("Fire1"))//pickup new weapon
                 {
-                    Hit.collider.GetComponent<Health>().HealthFunction(Damage);
-                }
+                    if (Weapon == null)
+                    {
+                        hit.collider.GetComponent<InteractableObject>().OnStartInteraction();
+                    }
+                    else
+                    {
+                        Weapon.GetComponent<InteractableObject>().OnEndInteraction();
+                        hit.collider.GetComponent<InteractableObject>().OnStartInteraction();
+                    }
+                }              
             }
-            CanAttack = false;
-            StartCoroutine(AttackCooldown());
+        }
+        else
+        {
+            if (Weapon != null && Input.GetButtonDown("Fire1"))//attack
+            {
+                Weapon.GetComponent<InteractableObject>().AttackInteraction();
+            }
+            if (Weapon != null && Input.GetButtonDown("Fire2"))//throw
+            {
+                Weapon.GetComponent<InteractableObject>().OnSecondaryStartInteraction();
+            }
+        }
+        if (Weapon != null)
+        {
+            Weapon.transform.parent = Hand.transform;
+            Weapon.transform.position = Hand.transform.position;
+            Weapon.transform.eulerAngles = Hand.transform.eulerAngles;
         }
     }
-    IEnumerator AttackCooldown()
-    {
-        yield return new WaitForSeconds(Cooldown);
-        CanAttack = true;
-    }
-
-
 }
