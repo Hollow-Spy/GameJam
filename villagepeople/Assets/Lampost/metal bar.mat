@@ -21,18 +21,25 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: metal bar
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: fb6593ace754d984f814e1fe97536258, type: 3}
   m_ShaderKeywords: _DETAIL_MULX2
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_aede6d70130b4e78b81325e53686cc42:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_e0ad3fc3950e45cfa8e55b78c2b2ff3f:
+        m_Texture: {fileID: 2800000, guid: 17d0b200966861748ae0ba55b2779687, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 17d0b200966861748ae0ba55b2779687, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -90,6 +97,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_72e5bad6cf8a4367bcd7543f1df4cd77: 0.08
+    - Vector1_780ddda3ba7a4ba88062a5de6d8e4ef2: 0.48
+    - Vector1_8f729db6804f4da38f67e26d73ca9ec3: 0.66
+    - Vector1_e63fa1f21f174bab9513ab9d64e21995: 0.87
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -117,6 +128,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_ce5c1541deb340aab4a9c4df22ab831c: {r: 0.34905657, g: 0.34905657, b: 0.34905657, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

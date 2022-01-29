@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
+
+
 
 public class DayNnight : MonoBehaviour
 {
     public Transform sun;
     public Text text;
-    private float TimeMultiplier = 2.4f;
+    public float TimeMultiplier = 2.4f;
     private float StartTime = 12f;
+    public float rotIncrease=1;
+    public Volume NightVolume,DayVolume;
+
     private DateTime TimeNow;
     private bool ItsDay, ItsNight;
     // Start is called before the first frame update
@@ -36,13 +43,29 @@ public class DayNnight : MonoBehaviour
             ItsDay = true;
             ItsNight = false;
         }
+
+        if (sun.transform.eulerAngles.x > 200 && sun.transform.eulerAngles.x < 350)
+        {
+            NightVolume.weight = Mathf.Lerp(NightVolume.weight, 1, .3f * Time.deltaTime);
+
+            DayVolume.weight = Mathf.Lerp(DayVolume.weight, 0, .4f * Time.deltaTime);
+
+          
+        }
+        else
+        {
+            NightVolume.weight = Mathf.Lerp(NightVolume.weight, 0, .3f * Time.deltaTime);
+
+            DayVolume.weight = Mathf.Lerp(DayVolume.weight, 1, .4f * Time.deltaTime);
+        }
+
     }
 
     private void TimeCounter()
     {
         TimeNow = TimeNow.AddMinutes(Time.deltaTime * TimeMultiplier);
-        text.text = TimeNow.ToString("HH:mm");
-        sun.Rotate(Time.deltaTime / 1.666666666666667f, 0f, 0f);
+       // text.text = TimeNow.ToString("HH:mm");
+        sun.Rotate(Time.deltaTime / 1.666666666666667f * rotIncrease, 0f, 0f);
     }
 
     private void Night()
