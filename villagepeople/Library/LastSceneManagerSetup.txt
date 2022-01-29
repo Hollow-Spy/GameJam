@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/MarkScene.unity
+- path: Assets/Scenes/HollowScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
