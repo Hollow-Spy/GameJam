@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
 
-    public float speed = 12;
+     float speed = 12;
 
     Vector3 velocity;
 
@@ -16,9 +16,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     [SerializeField] Transform groundCheck;
     [SerializeField] float jumpheight;
-    
-    bool isGrounded;
-   
+    [SerializeField] float walkspeed;
+   [SerializeField] float sprintSpeed;
+   public bool is_walking;
+    public bool isGrounded;
+    public bool is_running;
 
     // Update is called once per frame
     void Update()
@@ -33,6 +35,26 @@ public class PlayerMovement : MonoBehaviour
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+
+        if(x > 0 || z > 0)
+        {
+            is_walking = true;
+        }
+        else
+        {
+            is_walking = false;
+        }
+
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            is_running = true;
+            speed = sprintSpeed;
+        }
+     if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            is_running = false;
+            speed = walkspeed;
+        }
 
         Vector3 move = transform.right * x + transform.forward * z;
 

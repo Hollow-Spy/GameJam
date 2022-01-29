@@ -1,5 +1,13 @@
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 ﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"m_AlwaysRefresh":false,"showFog":true,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true,"showVisualEffectGraphs":true,"m_FxEnabled":true},"in2DMode":false,"pivot":{"x":1.1185097694396973,"y":1.4584709405899048,"z":-7.067174434661865},"rotation":{"x":0.2946901023387909,"y":0.06880908459424973,"z":-0.005340051371604204,"w":0.9531552791595459},"size":1.2156705856323243,"orthographic":false}
 =======
 ﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"m_AlwaysRefresh":false,"showFog":true,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true,"showVisualEffectGraphs":true,"m_FxEnabled":true},"in2DMode":false,"pivot":{"x":-35.9425048828125,"y":48.71192932128906,"z":74.17264556884766},"rotation":{"x":-0.02858387678861618,"y":-0.9833436608314514,"z":0.080646812915802,"w":-0.16075102984905244},"size":15.377889633178711,"orthographic":false}
 >>>>>>> 01fa73a3a80e892ed80671311f6be52049aca055
+=======
+<<<<<<< Updated upstream
+﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"m_AlwaysRefresh":false,"showFog":true,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true,"showVisualEffectGraphs":true,"m_FxEnabled":true},"in2DMode":false,"pivot":{"x":-35.9425048828125,"y":48.71192932128906,"z":74.17264556884766},"rotation":{"x":-0.02858387678861618,"y":-0.9833436608314514,"z":0.080646812915802,"w":-0.16075102984905244},"size":15.377889633178711,"orthographic":false}
+=======
+﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"m_AlwaysRefresh":false,"showFog":true,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true,"showVisualEffectGraphs":true,"m_FxEnabled":true},"in2DMode":false,"pivot":{"x":29.899799346923829,"y":-0.8459112644195557,"z":57.25831985473633},"rotation":{"x":-0.03519735485315323,"y":-0.9798098206520081,"z":0.14023667573928834,"w":-0.13843290507793427},"size":5.134063720703125,"orthographic":false}
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes

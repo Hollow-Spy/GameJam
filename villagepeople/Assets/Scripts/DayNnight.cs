@@ -18,7 +18,7 @@ public class DayNnight : MonoBehaviour
     public Volume NightVolume,DayVolume;
 
     private DateTime TimeNow;
-    private bool ItsDay, ItsNight;
+    public bool ItsDay, ItsNight;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,13 +31,13 @@ public class DayNnight : MonoBehaviour
     {
         TimeCounter();
 
-        if (TimeNow.Hour == 20 && ItsNight == false)
+        if (sun.eulerAngles.x > 200 && ItsNight == false)
         {
             Night();
             ItsNight = true;
             ItsDay = false;
         }
-        else if (TimeNow.Hour == 8 && ItsDay == false)
+        else if (sun.eulerAngles.x < 200 && ItsDay == false)
         {
             Day();
             ItsDay = true;
@@ -63,7 +63,6 @@ public class DayNnight : MonoBehaviour
 
     private void TimeCounter()
     {
-        TimeNow = TimeNow.AddMinutes(Time.deltaTime * TimeMultiplier);
        // text.text = TimeNow.ToString("HH:mm");
         sun.Rotate(Time.deltaTime / 1.666666666666667f * rotIncrease, 0f, 0f);
     }
