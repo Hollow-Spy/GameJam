@@ -12,6 +12,10 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] Text dialogueText;
     [SerializeField] Text nameText;
     [SerializeField] AudioSource voiceplayer;
+    [SerializeField] GameObject Buttons;
+    [SerializeField] GameObject ButtonFade;
+    [SerializeField] bool answered;
+    [SerializeField] Dialogue currentDialogue;
 
     void Start()
     {
@@ -31,7 +35,7 @@ public class DialogueSystem : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     {
         sentences.Clear();
-
+        currentDialogue = dialogue;
         FindObjectOfType<DialogueInteractor>().active = false;
 
         talking = true;
@@ -141,6 +145,25 @@ public class DialogueSystem : MonoBehaviour
                 yield return new WaitForSeconds(.3f);
 
             }
+
+            if (sentence[index] == '?')
+            {
+                voiceplayer.Stop();
+                Buttons.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                while (!answered)
+                {
+                    yield return null;
+
+                }
+
+
+
+
+            }
+
+         
+
             index++;
 
           
@@ -156,9 +179,56 @@ public class DialogueSystem : MonoBehaviour
 
     }
 
+    public void AnswerQuestion(bool yes)
+    {
+
+        StopAllCoroutines();
+
+        if (Buttons.activeSelf)
+        {
+            Buttons.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            GameObject button = Instantiate(ButtonFade, transform.position, Quaternion.identity);
+            button.GetComponentInChildren<Animator>().SetTrigger("fade");
+
+        }
+
+        if ((currentDialogue.YesPromptCorrect && yes) || (!currentDialogue.YesPromptCorrect && !yes) )
+        {
+            FindObjectOfType<TrustLevel>().TrustAction(Random.Range(5, 15));
+
+          
+            StartCoroutine(SentenceNumerator(currentDialogue.rightsentence));
+
+        }
+        else
+        {
+            FindObjectOfType<TrustLevel>().TrustAction(Random.Range(-5, -15));
+
+
+           
+            StartCoroutine(SentenceNumerator(currentDialogue.wrongsentence));
+
+        }
+
+
+
+
+    }
+
+
     public void EndDialogue()
     {
         FindObjectOfType<DialogueInteractor>().active = true;
+
+        if(Buttons.activeSelf)
+        {
+             Buttons.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+           GameObject button = Instantiate(ButtonFade, transform.position, Quaternion.identity);
+            button.GetComponentInChildren<Animator>().SetTrigger("fade");
+
+        }
 
         nameText.text = "";
         dialogueText.text = "";

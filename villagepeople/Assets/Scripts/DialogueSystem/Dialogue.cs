@@ -11,6 +11,8 @@ public class Dialogue
 
     public bool YesPromptCorrect;
 
+    public string rightsentence,wrongsentence;
+
     [TextArea(3,10)]
     public string[] sentences;
 
