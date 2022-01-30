@@ -13,7 +13,8 @@ public class TrustLevel : MonoBehaviour
 
     private void Start()
     {
-      
+       
+        
     }
     public void TrustAction(int amout)
     {
