@@ -39,22 +39,32 @@ public class IdleState : State
 
         float fov = Vector3.Angle(targetDirection, transform.forward);
 
+        RaycastHit hit;
         // compare angle between enemy looking forward and targets position
         // if player is outside of enemies fov he stays undetected
         // also use raycast to determin if AI can actually see the player
         if (fov > minimumDetectionAngle && fov < maximumDetectionAngle &&
-            Physics.Raycast(transform.position, player.position - transform.position, 15f))
+            Physics.Raycast(transform.position, player.position - transform.position, out hit, 15f))
         {
-            return true;
+
+            if (hit.collider.CompareTag("Player"))
+            {
+
+                return true;
+            }
+            else
+            {
+
+                return false;
+            }
+           
         }
         else
         {
             return false;
         }
-
-
     }
-    // detection meter? like on detection + x * deltaTime and if reaches X -> detected
+    // add detection meter? like on detection + x * deltaTime and if reaches X -> detected
 
  
 }

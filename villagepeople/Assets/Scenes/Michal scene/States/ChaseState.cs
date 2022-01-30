@@ -17,7 +17,8 @@ public class ChaseState : State
     {
 
         // raycast and if false add players pos as new target
-        if (Physics.Raycast(transform.position, target.position - transform.position, 15f))
+        //Physics.Raycast(transform.position, target.position - transform.position, 10f)
+        if (idle.DetectsPlayer())
         {
             
             NavMeshAI.isPatrolling = false;
@@ -47,7 +48,10 @@ public class ChaseState : State
             // return idle state after a while
                
             */
+
+
             NavMeshAI.isPatrolling = true;
+            NavMeshAI.GetLastPos();
             return idle;
         }
 
@@ -55,7 +59,7 @@ public class ChaseState : State
     }
     public bool CanAttack()
     {
-        if (Vector3.Distance(transform.position, target.position) < 0.6f)
+        if (Vector3.Distance(transform.position, target.position) < 2f)
         {
             return true;
         }

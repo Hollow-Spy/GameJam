@@ -6,13 +6,17 @@ using UnityEngine.AI;
 public class NavMeshAI : MonoBehaviour
 {
     public List<Transform> Waypoints;
-    private int waypointIndex = 0;
+    [SerializeField]  private int waypointIndex = 0;
+
+    public Transform tempObj;
+
+    static NavMeshAI _navmeshai;
 
     public Transform player;
 
     public static bool isPatrolling = true;
 
-    [SerializeField] private Transform directionPosition;
+    [SerializeField] private Vector3 directionPosition;
 
     private NavMeshAgent agent;
 
@@ -21,13 +25,15 @@ public class NavMeshAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         SetTarget(Waypoints[waypointIndex]);
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        _navmeshai = this;
+
     }
 
 
     private void Update()
     {
 
-        agent.destination = directionPosition.position;
+        agent.destination = directionPosition;
 
         if (isPatrolling)
         {
@@ -37,35 +43,62 @@ public class NavMeshAI : MonoBehaviour
         else
         {
             SetTarget(player);
-            agent.stoppingDistance = 3f;
+            agent.stoppingDistance = 1.5f;
         }
         
-
-        
-          
-
-        // if (target = null) - go back to patroling
     }
 
 
+
+
+
+    public bool RandomBool()
+    {
+        if (Random.value < 0.25f)
+        {
+            return true; // if true -> skip one waypoint
+        }
+        else
+        {
+            return false;   // false -> continue as normal
+        }
+    }
+
+    // ---------------------------------------------------------------
+    // REMEMBER TO ADJUST NUMBERS ACORDING TO THE LENGHT OF THE LIST |
+    // ---------------------------------------------------------------
+
+    
     public void Patrol()
     {
         SetTarget(Waypoints[waypointIndex]);
 
-        if (Vector3.Distance(transform.position, directionPosition.position) <= 0.5f)
+        if (Vector3.Distance(transform.position, directionPosition) <= 0.5f)
         {
-            if (waypointIndex >= Waypoints.Count - 1)
+            
+
+            if (RandomBool())
+            {
+                waypointIndex += 2;
+                
+            }
+            else
+            {
+                waypointIndex++;
+            }
+            
+
+            if (waypointIndex >= Waypoints.Count - 2)
             {
                 waypointIndex = 0;
                 SetTarget(Waypoints[waypointIndex]);
 
-                Debug.Log("Index: " + waypointIndex);
-
                 return;
             }
-            waypointIndex++;
-            SetTarget(Waypoints[waypointIndex]);
-
+            else
+            {
+                SetTarget(Waypoints[waypointIndex]);
+            }
         }
     }
 
@@ -76,32 +109,37 @@ public class NavMeshAI : MonoBehaviour
     {
         if (target != null)
         {
-            directionPosition = target;
+            directionPosition = target.position;
             
         }
         else
         {
-            directionPosition = Waypoints[waypointIndex];
+            directionPosition = Waypoints[waypointIndex].position;
         }
 
     }
 
-    public void AddLastKnownPos(Transform player)
+    Vector3 tempTransform;
+    
+    public static void GetLastPos()
     {
-        Waypoints.Add(player);
-        SetTarget(Waypoints[Waypoints.Count]);
+        // change agent destination
+        _navmeshai.tempTransform = GetPlayerPos();
+        _navmeshai.tempObj.transform.position = _navmeshai.tempTransform;
+        //_navmeshai.Waypoints[4] = _navmeshai.tempObj.transform;
+
+        _navmeshai.waypointIndex = 4;
+
+
+        // Debug.Log("After set target");
+
     }
 
-    public void LookAround()
+
+    public static Vector3 GetPlayerPos()
     {
-        float speed = 1f;
-        transform.rotation = Quaternion.Slerp(transform.rotation, new Quaternion(0f, 90f, 0f, 0f), speed * Time.deltaTime);
+        return _navmeshai.player.transform.position;
     }
 
-
-    public Transform GetLastPos()
-    {
-        return Waypoints[Waypoints.Count];
-    }
 
 }

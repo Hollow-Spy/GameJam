@@ -5,10 +5,25 @@ using UnityEngine;
 public class AttackState : State
 {
 
-
+    public ChaseState chase;
     public override State RunState()
     {
-        Debug.Log("Attaaaaaaack!");
-        return this;
+
+        if (chase.CanAttack())
+        {
+            Debug.Log("Attaaaaaaack!");
+            return this;
+        }
+        else
+        {
+            return chase;
+        }
+        
+
+
+
     }
+
+
+
 }
