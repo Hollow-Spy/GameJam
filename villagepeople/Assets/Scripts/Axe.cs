@@ -15,18 +15,31 @@ public class Axe : InteractableObject
 
     [SerializeField]
     Vector3 HandTransform,HandRotation,HandScale;
-
+  
     Transform Hand;
+    [SerializeField] Animator animator;
+    [SerializeField] GameObject SwingSFX, ThrowSFX;
+
+    TrailRenderer trail;
+
     private void Start()
     {
         Object = GetComponent<Rigidbody>();
         Hand = GameObject.Find("Hand").transform;
+
+        animator = Hand.GetComponentInParent<Animator>();
+
+        trail = GetComponentInChildren<TrailRenderer>();
+        trail.emitting = false;
     }
 
+ 
     private void Update()
     {
         if (flying)
         {
+            trail.emitting = true;
+
             if (FlyingRotate)
             {
                 transform.Rotate(Time.deltaTime * 1000, 0f, 0f);
@@ -36,6 +49,10 @@ public class Axe : InteractableObject
                 transform.Rotate(0f, -Time.deltaTime * 1000, 0f);
             }            
 
+        }
+        else
+        {
+            trail.emitting = false;
         }
     }
     public override void OnStartInteraction()
@@ -59,6 +76,8 @@ public class Axe : InteractableObject
     {
         if (CanAttack)//the attacking mechanic
         {
+            animator.SetTrigger("swing");   
+            Instantiate(SwingSFX,transform.position,Quaternion.identity);
             RaycastHit Hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out Hit, Range))
             {
@@ -93,7 +112,9 @@ public class Axe : InteractableObject
         PlayerCombat.Weapon.transform.parent = null;
         PlayerCombat.Weapon = null;
 
-        if(DumbAxe || FlyingRotate)
+        Instantiate(ThrowSFX, transform.position, Quaternion.identity);
+
+        if (DumbAxe || FlyingRotate)
         {
             Object.AddForce(transform.forward * ThrowPower, ForceMode.Impulse);
         }
@@ -115,6 +136,7 @@ public class Axe : InteractableObject
         flying = false;
         if (collision.collider.tag == "Enemy" || collision.transform.CompareTag("NPC"))
         {
+
            collision.collider.GetComponent<Health>().HealthFunction(Damage);
            
 

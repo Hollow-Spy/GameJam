@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public static GameObject Weapon = null; 
+    public static GameObject Weapon = null;
+
     public LayerMask mask;
     public bool active;
     private void Update()
@@ -26,6 +27,8 @@ public class PlayerCombat : MonoBehaviour
                         }
                         else
                         {
+                            
+
                             Weapon.GetComponent<InteractableObject>().OnEndInteraction();
                             hit.collider.GetComponent<InteractableObject>().OnStartInteraction();
                         }
@@ -36,6 +39,7 @@ public class PlayerCombat : MonoBehaviour
             {
                 if (Weapon != null && Input.GetButtonDown("Fire1"))//attack
                 {
+                   
                     Weapon.GetComponent<InteractableObject>().AttackInteraction();
                 }
                 if (Weapon != null && Input.GetButtonDown("Fire2"))//throw

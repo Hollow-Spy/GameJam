@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] float hp = 20;
+    public float hp = 20;
     public void HealthFunction(float damage)
     {
         hp -= damage;
