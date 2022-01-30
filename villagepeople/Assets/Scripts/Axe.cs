@@ -9,16 +9,33 @@ public class Axe : InteractableObject
     bool flying;
     [SerializeField]
     private float Cooldown, Damage, Range, ThrowPower;
+
+    [SerializeField]
+    bool FlyingRotate, DumbAxe,Dagger;
+
+    [SerializeField]
+    Vector3 HandTransform,HandRotation,HandScale;
+
+    Transform Hand;
     private void Start()
     {
         Object = GetComponent<Rigidbody>();
+        Hand = GameObject.Find("Hand").transform;
     }
 
     private void Update()
     {
         if (flying)
         {
-            transform.Rotate(Time.deltaTime * 1000 ,0f,0f);
+            if (FlyingRotate)
+            {
+                transform.Rotate(Time.deltaTime * 1000, 0f, 0f);
+            }
+            else if (DumbAxe)
+            {
+                transform.Rotate(0f, -Time.deltaTime * 1000, 0f);
+            }            
+
         }
     }
     public override void OnStartInteraction()
@@ -28,6 +45,14 @@ public class Axe : InteractableObject
             PlayerCombat.Weapon = gameObject;
             GetComponent<Collider>().enabled = false;
             Object.isKinematic = true;
+            Hand.localPosition = HandTransform;
+            Hand.localRotation = Quaternion.Euler(HandRotation);
+            Hand.localScale = HandScale;
+            transform.SetParent(Hand);
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.Euler(Vector3.zero);
+            transform.localScale = Vector3.one;
+            
         }
     }
     public override void AttackInteraction()
@@ -67,7 +92,21 @@ public class Axe : InteractableObject
         Object.isKinematic = false;
         PlayerCombat.Weapon.transform.parent = null;
         PlayerCombat.Weapon = null;
-        Object.AddForce(transform.forward * ThrowPower, ForceMode.Impulse);
+
+        if(DumbAxe || FlyingRotate)
+        {
+            Object.AddForce(transform.forward * ThrowPower, ForceMode.Impulse);
+        }
+        else if(Dagger)
+        {
+            Object.AddForce(transform.up * ThrowPower, ForceMode.Impulse);
+            transform.eulerAngles = new Vector3(180f, 0f, 0f);
+        }
+        else
+        {
+            Object.AddForce(-transform.forward * ThrowPower, ForceMode.Impulse);
+        }
+
         flying = true;
     }
 

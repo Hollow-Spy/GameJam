@@ -97,9 +97,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!65 &7924270605173282440
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -125,7 +125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2141bea660e97e4badd3e8d05e5d607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: 0
-  Damage: 0
-  Range: 0
-  ThrowPower: 0
+  Cooldown: 1
+  Damage: 2
+  Range: 3
+  ThrowPower: 15
+  FlyingRotate: 0
+  DumbAxe: 0
+  Dagger: 0
+  HandTransform: {x: 0.19, y: -0.1, z: 0.71}
+  HandRotation: {x: 16.6, y: 180, z: 0}
+  HandScale: {x: 1, y: 1, z: 1}

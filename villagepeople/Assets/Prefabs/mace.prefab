@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8857580356183817907}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.33, y: 1.07, z: -7.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -106,13 +106,13 @@ Rigidbody:
   m_GameObject: {fileID: 8857580356183817907}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &7578642457018703207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2141bea660e97e4badd3e8d05e5d607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: 0
-  Damage: 0
-  Range: 0
-  ThrowPower: 0
+  Cooldown: 5
+  Damage: 10
+  Range: 2
+  ThrowPower: 15
+  FlyingRotate: 1
+  DumbAxe: 0
+  Dagger: 0
+  HandTransform: {x: 0.43, y: -0.3, z: 0.74}
+  HandRotation: {x: 0, y: 0, z: 0}
+  HandScale: {x: 1, y: 1, z: 1}

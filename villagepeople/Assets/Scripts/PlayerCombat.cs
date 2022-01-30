@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public static Transform Eyes;
-    public Transform Hand;
-    public static GameObject Weapon = null;
+    public static GameObject Weapon = null; 
     public LayerMask mask;
     private void Update()
     {      
@@ -39,12 +37,6 @@ public class PlayerCombat : MonoBehaviour
             {
                 Weapon.GetComponent<InteractableObject>().OnSecondaryStartInteraction();
             }
-        }
-        if (Weapon != null)
-        {
-            Weapon.transform.parent = Hand.transform;
-            Weapon.transform.position = Hand.transform.position;
-            Weapon.transform.eulerAngles = Hand.transform.eulerAngles;
         }
     }
 }
