@@ -65,7 +65,7 @@ public class MaskInteract : MonoBehaviour
         if(sun.ItsNight && !maskOn)
         {
             PressInfo.SetActive(true);
-            FindObjectOfType<DialogueInteractor>().active = false;
+            
 
             if (Input.GetKeyDown(KeyCode.F))
             {

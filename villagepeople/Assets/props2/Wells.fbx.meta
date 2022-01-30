@@ -3,37 +3,7 @@ guid: 4ce3f9aab3ab5184da0a0201ae6850fa
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Can
-    second: {fileID: 2100000, guid: 5e7d4347ca35ee44bbfc9b8c22ac9a54, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Cover
-    second: {fileID: 2100000, guid: c2a42ce4e51eee9479ccb0fbd1b39b64, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Rope
-    second: {fileID: 2100000, guid: be4e569941916c44cbe64172b3659379, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Spindle
-    second: {fileID: 2100000, guid: be2fb5a681b19bb48a9ac5e0dd94010d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Water
-    second: {fileID: 2100000, guid: c94571363638b544fa5f2a1f2cd96dfc, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Well
-    second: {fileID: 2100000, guid: ee475a3b39a1a024ba5c64581c79b5cc, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -66,7 +36,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importVisibility: 1

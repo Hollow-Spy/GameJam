@@ -11,11 +11,7 @@ public class TrustLevel : MonoBehaviour
     [SerializeField] GameObject textPopUp;
     [SerializeField] Image fill;
 
-    private void Start()
-    {
-       
-        
-    }
+  
     public void TrustAction(int amout)
     {
        GameObject text = Instantiate(textPopUp, transform.position, Quaternion.identity);
@@ -37,6 +33,7 @@ public class TrustLevel : MonoBehaviour
     }
     public void SilentAction(int amout)
     {
+      
         TrustSlider.value += amout;
     }
 

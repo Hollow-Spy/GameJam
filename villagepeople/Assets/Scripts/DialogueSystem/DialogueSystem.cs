@@ -16,6 +16,7 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] GameObject ButtonFade;
     [SerializeField] bool answered;
     [SerializeField] Dialogue currentDialogue;
+    [SerializeField] DefaultNPC npc;
 
     void Start()
     {
@@ -30,10 +31,18 @@ public class DialogueSystem : MonoBehaviour
         {
             DisplayNextSentence();
         }
+
+        if(talking && npc && Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, npc.transform.position )  >  8  )
+        {
+            EndDialogue();
+
+        }
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(Dialogue dialogue,DefaultNPC npcd)
     {
+        npc = npcd;
+
         sentences.Clear();
         currentDialogue = dialogue;
         FindObjectOfType<DialogueInteractor>().active = false;
@@ -79,7 +88,7 @@ public class DialogueSystem : MonoBehaviour
         bool loud = false;
         float soundDelay=0;
         float basedelay;
-        float textDelay;
+       
       
 
         while(index < sentence.Length)
@@ -137,7 +146,7 @@ public class DialogueSystem : MonoBehaviour
                 soundDelay = basedelay; 
                 
             }
-            yield return new WaitForSeconds(0.097f);
+            yield return new WaitForSeconds(0.067f);
             if(sentence[index] == '.' )
             {
                 yield return new WaitForSeconds(.1f);
@@ -195,9 +204,12 @@ public class DialogueSystem : MonoBehaviour
 
         if ((currentDialogue.YesPromptCorrect && yes) || (!currentDialogue.YesPromptCorrect && !yes) )
         {
+           
+
             FindObjectOfType<TrustLevel>().TrustAction(Random.Range(5, 15));
 
-          
+            npc.Trust();
+
             StartCoroutine(SentenceNumerator(currentDialogue.rightsentence));
 
         }
@@ -206,7 +218,8 @@ public class DialogueSystem : MonoBehaviour
             FindObjectOfType<TrustLevel>().TrustAction(Random.Range(-5, -15));
 
 
-           
+            npc.Distrust();
+
             StartCoroutine(SentenceNumerator(currentDialogue.wrongsentence));
 
         }
@@ -220,6 +233,12 @@ public class DialogueSystem : MonoBehaviour
     public void EndDialogue()
     {
         FindObjectOfType<DialogueInteractor>().active = true;
+
+     if(npc != null)
+        {
+            npc.NotTalkingFunc();
+        }
+       
 
         if(Buttons.activeSelf)
         {

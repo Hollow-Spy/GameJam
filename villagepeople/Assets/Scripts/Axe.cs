@@ -62,7 +62,7 @@ public class Axe : InteractableObject
             RaycastHit Hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out Hit, Range))
             {
-                if (Hit.collider.tag == "Enemy")
+                if (Hit.collider.tag == "Enemy" || Hit.collider.tag == "NPC")
                 {
                     Debug.Log("Enemy hit");
                     Hit.collider.GetComponent<Health>().HealthFunction(Damage);
@@ -113,11 +113,17 @@ public class Axe : InteractableObject
     private void OnCollisionEnter(Collision collision)
     {
         flying = false;
-        if (collision.collider.tag == "Enemy")
+        if (collision.collider.tag == "Enemy" || collision.transform.CompareTag("NPC"))
         {
            collision.collider.GetComponent<Health>().HealthFunction(Damage);
-           transform.parent = collision.transform;
-           Object.isKinematic = true;
+           
+
+            if(collision.collider.gameObject)
+            {
+                transform.parent = collision.transform;
+                Object.isKinematic = true;
+            }
+          
         }
     }
 }

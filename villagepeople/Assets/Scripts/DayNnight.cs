@@ -59,6 +59,11 @@ public class DayNnight : MonoBehaviour
             DayVolume.weight = Mathf.Lerp(DayVolume.weight, 1, .4f * Time.deltaTime);
         }
 
+        if(ItsNight)
+        {
+            FindObjectOfType<DialogueInteractor>().active = false;
+        }
+
     }
 
     private void TimeCounter()
@@ -70,9 +75,19 @@ public class DayNnight : MonoBehaviour
     private void Night()
     {
         Debug.Log("its night");
+
+        GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
+        for(int i=0;i<npcs.Length;i++)
+        {
+            npcs[i].GetComponent<DefaultNPC>().BackHome() ;
+        }
+
     }
     private void Day()
     {
-        Debug.Log("its day");
+        FindObjectOfType<DialogueInteractor>().active = true;
+
+
+        FindObjectOfType<NPCSpawner>().SpawnDayNPCS();
     }
 }

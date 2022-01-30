@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    float hp = 20;
+    [SerializeField] float hp = 20;
     public void HealthFunction(float damage)
     {
         hp -= damage;
@@ -12,6 +12,7 @@ public class Health : MonoBehaviour
         if (hp < 1)
         {
             Debug.Log("Death");
+            Destroy(gameObject);
         }
     }
 }
