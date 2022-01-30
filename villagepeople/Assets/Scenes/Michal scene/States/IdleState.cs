@@ -12,6 +12,11 @@ public class IdleState : State
     float minimumDetectionAngle = -50f;
     float maximumDetectionAngle = 50f;
 
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     public override State RunState()
     {
         if (DetectsPlayer())

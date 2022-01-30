@@ -69,6 +69,8 @@ public class MaskInteract : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.F))
             {
+                FindObjectOfType<PlayerCombat>().active = true;
+
                 Instantiate(RoarEffect, transform.position, Quaternion.identity);
                 StartCoroutine(NightTheme());
                 maskOn = true;
@@ -88,6 +90,8 @@ public class MaskInteract : MonoBehaviour
 
             if(maskOn)
             {
+                FindObjectOfType<PlayerCombat>().active = false;
+
                 FindObjectOfType<DialogueInteractor>().active = true;
 
                 StartCoroutine(DayTheme());

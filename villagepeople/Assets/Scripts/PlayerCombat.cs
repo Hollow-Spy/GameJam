@@ -48,6 +48,15 @@ public class PlayerCombat : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if(Weapon !=null)
+            {
+                Weapon.GetComponent<InteractableObject>().OnEndInteraction();
+
+            }
+
+        }
 
     }
 }

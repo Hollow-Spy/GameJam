@@ -13,6 +13,10 @@ public class ChaseState : State
     public Transform target;
 
 
+    private void Start()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
     public override State RunState()
     {
 

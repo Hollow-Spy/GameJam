@@ -22,6 +22,15 @@ public class NavMeshAI : MonoBehaviour
 
     private void Awake()
     {
+        Transform[] points = GameObject.Find("Waypoints").GetComponentsInChildren<Transform>();
+
+        for(int i=1;i < points.Length;i++)
+        {
+            Waypoints.Add(points[i]) ;
+        }
+
+        tempObj = points[points.Length-1];
+
         agent = GetComponent<NavMeshAgent>();
         SetTarget(Waypoints[waypointIndex]);
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -124,8 +133,10 @@ public class NavMeshAI : MonoBehaviour
     public static void GetLastPos()
     {
         // change agent destination
+
         _navmeshai.tempTransform = GetPlayerPos();
         _navmeshai.tempObj.transform.position = _navmeshai.tempTransform;
+
         //_navmeshai.Waypoints[4] = _navmeshai.tempObj.transform;
 
         _navmeshai.waypointIndex = 4;

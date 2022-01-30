@@ -8,14 +8,14 @@ public class Axe : InteractableObject
     bool CanAttack = true;
     bool flying;
     [SerializeField]
-    private float Cooldown, Damage, Range, ThrowPower;
+    private float Cooldown, Damage, Range, ThrowPower, ThrowDamage;
 
     [SerializeField]
-    bool FlyingRotate, DumbAxe,Dagger;
+    bool FlyingRotate, DumbAxe, Dagger;
 
     [SerializeField]
-    Vector3 HandTransform,HandRotation,HandScale;
-  
+    Vector3 HandTransform, HandRotation, HandScale;
+
     Transform Hand;
     [SerializeField] Animator animator;
     [SerializeField] GameObject SwingSFX, ThrowSFX;
@@ -31,9 +31,10 @@ public class Axe : InteractableObject
 
         trail = GetComponentInChildren<TrailRenderer>();
         trail.emitting = false;
+        animator.enabled = false;
     }
 
- 
+
     private void Update()
     {
         if (flying)
@@ -47,7 +48,7 @@ public class Axe : InteractableObject
             else if (DumbAxe)
             {
                 transform.Rotate(0f, -Time.deltaTime * 1000, 0f);
-            }            
+            }
 
         }
         else
@@ -59,6 +60,7 @@ public class Axe : InteractableObject
     {
         if (PlayerCombat.Weapon == null)//when the weapon is picked up its in the players hands
         {
+            animator.enabled = false;
             PlayerCombat.Weapon = gameObject;
             GetComponent<Collider>().enabled = false;
             Object.isKinematic = true;
@@ -69,15 +71,16 @@ public class Axe : InteractableObject
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.Euler(Vector3.zero);
             transform.localScale = Vector3.one;
-            
+
         }
     }
     public override void AttackInteraction()
     {
         if (CanAttack)//the attacking mechanic
         {
-            animator.SetTrigger("swing");   
-            Instantiate(SwingSFX,transform.position,Quaternion.identity);
+            animator.enabled = true;
+            animator.SetTrigger("swing");
+            Instantiate(SwingSFX, transform.position, Quaternion.identity);
             RaycastHit Hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out Hit, Range))
             {
@@ -94,8 +97,9 @@ public class Axe : InteractableObject
 
     IEnumerator AttackCooldown() // controlls the cooldown of the attack
     {
-      yield return new WaitForSeconds(Cooldown);
-      CanAttack = true;
+        yield return new WaitForSeconds(Cooldown);
+        CanAttack = true;
+        ResetPosition();
     }
 
     public override void OnEndInteraction()//when the weapon is dropped by picking up a new weapon
@@ -107,28 +111,32 @@ public class Axe : InteractableObject
     }
     public override void OnSecondaryStartInteraction()//the throwing mechanic
     {
-        GetComponent<Collider>().enabled = true;
-        Object.isKinematic = false;
-        PlayerCombat.Weapon.transform.parent = null;
-        PlayerCombat.Weapon = null;
-
-        Instantiate(ThrowSFX, transform.position, Quaternion.identity);
-
-        if (DumbAxe || FlyingRotate)
+        if (CanAttack)
         {
-            Object.AddForce(transform.forward * ThrowPower, ForceMode.Impulse);
-        }
-        else if(Dagger)
-        {
-            Object.AddForce(transform.up * ThrowPower, ForceMode.Impulse);
-            transform.eulerAngles = new Vector3(180f, 0f, 0f);
-        }
-        else
-        {
-            Object.AddForce(-transform.forward * ThrowPower, ForceMode.Impulse);
-        }
 
-        flying = true;
+            GetComponent<Collider>().enabled = true;
+            Object.isKinematic = false;
+            PlayerCombat.Weapon.transform.parent = null;
+            PlayerCombat.Weapon = null;
+
+            Instantiate(ThrowSFX, transform.position, Quaternion.identity);
+
+            if (DumbAxe || FlyingRotate)
+            {
+                Object.AddForce(transform.forward * ThrowPower, ForceMode.Impulse);
+            }
+            else if (Dagger)
+            {
+                Object.AddForce(transform.up * ThrowPower, ForceMode.Impulse);
+                transform.eulerAngles = new Vector3(180f, 0f, 0f);
+            }
+            else
+            {
+                Object.AddForce(-transform.forward * ThrowPower, ForceMode.Impulse);
+            }
+
+            flying = true;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -137,15 +145,26 @@ public class Axe : InteractableObject
         if (collision.collider.tag == "Enemy" || collision.transform.CompareTag("NPC"))
         {
 
-           collision.collider.GetComponent<Health>().HealthFunction(Damage);
-           
+            collision.collider.GetComponent<Health>().HealthFunction(ThrowDamage);
 
-            if(collision.collider.gameObject)
+
+            if (collision.collider.gameObject)
             {
                 transform.parent = collision.transform;
                 Object.isKinematic = true;
             }
-          
+
         }
+    }
+
+    private void ResetPosition()
+    {
+        animator.enabled = false;
+        Hand.localPosition = HandTransform;
+        Hand.localRotation = Quaternion.Euler(HandRotation);
+        Hand.localScale = HandScale;
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.Euler(Vector3.zero);
+        transform.localScale = Vector3.one;
     }
 }

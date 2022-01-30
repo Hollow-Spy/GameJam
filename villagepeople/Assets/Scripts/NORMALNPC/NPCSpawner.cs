@@ -30,5 +30,24 @@ public class NPCSpawner : MonoBehaviour
 
     }
 
+    public void SpawnNightNPCS()
+    {
+        for (int i = 0; i < SpawnAmout; i++)
+        {
+           
+            int randomgen = Random.Range(0, 25);
+
+            if (FindObjectOfType<TrustLevel>().TrustSlider.value > randomgen)
+            {
+
+                int random = Random.Range(0, AgroNPCS.Length);
+                GameObject npc = Instantiate(AgroNPCS[random], transform.position, Quaternion.identity);
+            }
+
+        }
+
+    }
+
+
 
 }

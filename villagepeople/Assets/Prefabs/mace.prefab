@@ -126,10 +126,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2141bea660e97e4badd3e8d05e5d607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: 5
+  Cooldown: 0.5
   Damage: 10
-  Range: 2
+  Range: 7
   ThrowPower: 15
+  ThrowDamage: 20
   FlyingRotate: 1
   DumbAxe: 0
   Dagger: 0

@@ -19,6 +19,7 @@ public class DayNnight : MonoBehaviour
 
     private DateTime TimeNow;
     public bool ItsDay, ItsNight;
+    bool active;
     // Start is called before the first frame update
     void Start()
     {
@@ -82,12 +83,24 @@ public class DayNnight : MonoBehaviour
             npcs[i].GetComponent<DefaultNPC>().BackHome() ;
         }
 
+        FindObjectOfType<NPCSpawner>().SpawnNightNPCS();
+
+
     }
     private void Day()
     {
-        FindObjectOfType<DialogueInteractor>().active = true;
+        if(!active)
+        {
+            active = true;
+
+        }else
+        {
+            FindObjectOfType<DialogueInteractor>().active = true;
 
 
-        FindObjectOfType<NPCSpawner>().SpawnDayNPCS();
+            FindObjectOfType<NPCSpawner>().SpawnDayNPCS();
+
+        }
+       
     }
 }

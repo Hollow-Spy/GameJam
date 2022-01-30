@@ -128,7 +128,7 @@ public class DefaultNPC : MonoBehaviour
 
             StartCoroutine(TalkingTrash(other));
 
-            delay = 7;
+            delay = 3;
 
             other.GetComponent<DefaultNPC>().TalkingFunc();
             TalkingFunc();
@@ -161,7 +161,7 @@ public class DefaultNPC : MonoBehaviour
 
     public void TalkingFunc()
     {
-        GetComponent<DialogueTrigger>().timeOut = 15;
+        GetComponent<DialogueTrigger>().timeOut = 3;
 
         agent.isStopped =true;
         is_talking = true;

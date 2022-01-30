@@ -128,8 +128,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cooldown: 0.5
   Damage: 2
-  Range: 3
+  Range: 7
   ThrowPower: 15
+  ThrowDamage: 20
   FlyingRotate: 0
   DumbAxe: 0
   Dagger: 1
